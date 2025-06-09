@@ -1,7 +1,7 @@
 {
-  "name": "rocket-django",
+  "name": "upwork-review",
   "version": "1.0.0",
-  "description": "SaaS Django Starter styled with Tailwind/Flowbite",
+  "description": "Upwork Job Review",
   "main": "index.js",
   "directories": {
     "doc": "docs"

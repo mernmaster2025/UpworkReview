@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  appseed-app:
-    container_name: appseed-app
+  upworkreview-app:
+    container_name: upworkreview-app
     restart: always
     build:
       context: .
@@ -21,7 +21,7 @@ services:
     networks:
       - web_network
     depends_on:
-      - appseed-app
+      - upworkreview-app
   redis:
     image: redis:7.0.12
     container_name: redis
@@ -42,7 +42,7 @@ services:
       DJANGO_SETTINGS_MODULE: "config.settings"
     command: "celery -A home worker -l info -B"
     depends_on:
-      - appseed-app
+      - upworkreview-app
 networks:
   db_network:
     driver: bridge
