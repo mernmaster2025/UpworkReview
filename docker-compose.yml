@@ -8,6 +8,8 @@ services:
     networks:
       - db_network
       - web_network
+    volumes:
+      - .:/work
     environment:
       MYSQL_HOST: mysql
       MYSQL_DATABASE: upwork

@@ -4,13 +4,14 @@ FROM python:3.11.5
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+WORKDIR /work
+
 COPY requirements.txt .
 # install python dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-RUN chmod +x docker-entrypoint.sh
 
 # Install node 18 and npm
 RUN set -uex; \
@@ -29,5 +30,8 @@ RUN set -uex; \
 RUN npm i
 RUN npm run build
 RUN npx tailwindcss -i ./static/assets/style.css -o ./static/dist/css/output.css
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 CMD ["/docker-entrypoint.sh"]
