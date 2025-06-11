@@ -10,6 +10,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+RUN chmod +x docker-entrypoint.sh
 
 # Install node 18 and npm
 RUN set -uex; \
@@ -29,10 +30,4 @@ RUN npm i
 RUN npm run build
 RUN npx tailwindcss -i ./static/assets/style.css -o ./static/dist/css/output.css
 
-# Manage Assets & DB 
-RUN python manage.py collectstatic --no-input 
-RUN python manage.py makemigrations
-RUN python manage.py migrate
-
-# gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "config.wsgi"]
+CMD ["/docker-entrypoint.sh"]

@@ -8,8 +8,13 @@ services:
     networks:
       - db_network
       - web_network
-    volumes:
-      - ./db.sqlite3:/db.sqlite3
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: upwork
+      MYSQL_USER: root
+      MYSQL_PASSWORD: NewAccount30
+    depends_on:
+      - mysql
   nginx:
     container_name: nginx
     restart: always
@@ -22,6 +27,21 @@ services:
       - web_network
     depends_on:
       - upworkreview-app
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: upwork
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: NewAccount30
+      MYSQL_ROOT_PASSWORD: NewAccount30
+    ports:
+      - "3306:3306"
+    networks:
+      - db_network
+    volumes:
+      - mysql_data:/var/lib/mysql
   redis:
     image: redis:7.0.12
     container_name: redis
@@ -40,7 +60,7 @@ services:
       - db_network
     environment:
       DJANGO_SETTINGS_MODULE: "config.settings"
-    command: "celery -A home worker -l info -B"
+    command: "celery -A config worker -l info -B"
     depends_on:
       - upworkreview-app
 networks:
@@ -48,3 +68,5 @@ networks:
     driver: bridge
   web_network:
     driver: bridge
+volumes:
+  mysql_data:

@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'Super_Secr3t_9999')
 
 # Enable/Disable DEBUG Mode
 DEBUG = str2bool(os.environ.get('DEBUG'))
-#print(' DEBUG -> ' + str(DEBUG) ) 
+print(' DEBUG -> ' + str(DEBUG) ) 
 
 # Hosts Settings
 ALLOWED_HOSTS = ['*']
@@ -106,6 +106,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'upwork',
+#         'USER': 'root',
+#         'PASSWORD': 'NewAccount30',
+#         'HOST': 'mysql',
+#         'PORT': '3306',
+#     }
+# }
 
 DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
 DB_USERNAME = os.getenv('DB_USERNAME' , None)
